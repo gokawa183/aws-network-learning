@@ -252,6 +252,20 @@ git push origin main
 
 ---
 
+## 修正依頼を受けたときのワークフロー
+
+1. 変更を実施する
+2. 変更内容を `CLAUDE.md` に反映させる
+3. GitHub にコミット・プッシュする
+
+```
+git add index.html style.css data.js app.js CLAUDE.md
+git commit -m "変更内容の要約"
+git push origin master
+```
+
+---
+
 ## コミュニケーション
 
 - ユーザーへの確認・質問・コマンド実行前の確認はすべて**日本語**で行う
