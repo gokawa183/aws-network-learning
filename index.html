@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AWS & ネットワーク 学習アプリ</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- TOOLTIP -->
+<div class="tooltip" id="tt"><div class="tt-title" id="tt-title"></div><div class="tt-body" id="tt-body"></div></div>
+<!-- TERM POPUP -->
+<div class="term-popup" id="term-popup">
+  <div class="tp-head"><span class="tp-word" id="tp-word"></span><button class="tp-close" onclick="closeTerm()">✕</button></div>
+  <div class="tp-body" id="tp-body"></div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="container">
+    <div class="header-inner">
+      <div class="logo">AWS<em>&</em>NET // LEARN</div>
+      <div class="xp-wrap">
+        XP: <span id="xp-val">0</span>
+        <div class="xp-track"><div class="xp-fill" id="xp-fill" style="width:0%"></div></div>
+      </div>
+    </div>
+    <nav class="nav-tabs" id="nav-tabs">
+      <button class="nav-tab active" onclick="tab('home')">🏠 ホーム</button>
+      <button class="nav-tab" onclick="tab('netread')">📖 ネットワーク入門</button>
+      <button class="nav-tab" onclick="tab('devread')">📖 ネットワーク機器</button>
+      <button class="nav-tab" onclick="tab('awsread')">📖 AWS入門</button>
+      <button class="nav-tab" onclick="tab('cards')">🗂️ フラッシュカード</button>
+      <button class="nav-tab" onclick="tab('diagram')">🗺️ 構成図</button>
+      <button class="nav-tab" onclick="tab('quiz')">🎯 クイズ</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="container">
+
+<!-- ======================== HOME ======================== -->
+<div id="sec-home" class="section active">
+  <div class="sec-title">学習を<em>開始</em>しよう</div>
+  <div class="sec-sub">AWSとネットワーク技術の基礎をインタラクティブに学べます</div>
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-val" id="s-cards">48</div><div class="stat-label">フラッシュカード</div></div>
+    <div class="stat-card"><div class="stat-val">20</div><div class="stat-label">クイズ問題</div></div>
+    <div class="stat-card"><div class="stat-val" id="s-correct">0</div><div class="stat-label">正解数</div></div>
+    <div class="stat-card"><div class="stat-val" id="s-streak">0</div><div class="stat-label">連続正解</div></div>
+  </div>
+  <div class="cards-grid">
+    <div class="card" onclick="tab('netread')"><span class="card-icon">📖</span><div class="card-title">ネットワーク入門ガイド</div><div class="card-desc">「インターネットってどう動いてるの？」を例え話と図で解説</div><span class="badge badge-g">初心者向け</span></div>
+    <div class="card" onclick="tab('devread')"><span class="card-icon">🔌</span><div class="card-title">ネットワーク機器ガイド</div><div class="card-desc">ルーター・スイッチ・ハブ・NIC・モデムなど身近な機器の役割を解説</div><span class="badge badge-g">初心者向け</span></div>
+    <div class="card" onclick="tab('awsread')"><span class="card-icon">☁️</span><div class="card-title">AWS入門ガイド</div><div class="card-desc">クラウドの基本からEC2・S3・VPC・IAMまでやさしく解説</div><span class="badge badge-g">初心者向け</span></div>
+    <div class="card" onclick="tab('cards')"><span class="card-icon">🗂️</span><div class="card-title">フラッシュカード</div><div class="card-desc">OSIモデル・TCP/IP・AWSサービスを暗記形式で学習</div><span class="badge badge-o">INTERMEDIATE</span></div>
+    <div class="card" onclick="tab('diagram')"><span class="card-icon">🗺️</span><div class="card-title">インタラクティブ構成図</div><div class="card-desc">VPC・OSIモデルをクリックして視覚的に理解する</div><span class="badge badge-o">INTERACTIVE</span></div>
+    <div class="card" onclick="tab('quiz')"><span class="card-icon">🎯</span><div class="card-title">確認クイズ</div><div class="card-desc">全20問・解説付き。XPを貯めて理解度をチェック</div><span class="badge badge-p">CHALLENGE</span></div>
+  </div>
+</div>
+
+<!-- ======================== NET READ ======================== -->
+<div id="sec-netread" class="section">
+  <div class="sec-title">ネットワーク<em>入門ガイド</em></div>
+  <div class="sec-sub">専門知識ゼロでも読めます。例え話で直感的に理解しましょう。</div>
+  <div class="article-layout">
+    <nav class="toc" id="toc-net">
+      <div class="toc-title">目次</div>
+      <a class="toc-a active" onclick="scrollTo2('nr-1')">① ネットワークとは</a>
+      <a class="toc-a" onclick="scrollTo2('nr-2')">② IPアドレス</a>
+      <a class="toc-a" onclick="scrollTo2('nr-3')">③ データの届き方</a>
+      <a class="toc-a" onclick="scrollTo2('nr-4')">④ DNSサーバーの仕組み</a>
+      <a class="toc-a" onclick="scrollTo2('nr-4b')">⑤ ポート番号とは</a>
+      <a class="toc-a" onclick="scrollTo2('nr-5')">⑥ TCP と UDP</a>
+      <a class="toc-a" onclick="scrollTo2('nr-6')">⑦ OSIモデル 7層詳解</a>
+      <a class="toc-a" onclick="scrollTo2('nr-7')">⑧ ネットワークの守り方</a>
+    </nav>
+    <div class="article-body" id="body-netread"></div>
+  </div>
+</div>
+
+<!-- ======================== DEVICES READ ======================== -->
+<div id="sec-devread" class="section">
+  <div class="sec-title">ネットワーク<em>機器ガイド</em></div>
+  <div class="sec-sub">身近なネットワーク機器の役割を、例え話でやさしく解説します。</div>
+  <div class="article-layout">
+    <nav class="toc" id="toc-dev">
+      <div class="toc-title">目次</div>
+      <a class="toc-a active" onclick="scrollTo2('dr-1')">① NIC（ネットワークカード）</a>
+      <a class="toc-a" onclick="scrollTo2('dr-2')">② ハブ</a>
+      <a class="toc-a" onclick="scrollTo2('dr-3')">③ スイッチ</a>
+      <a class="toc-a" onclick="scrollTo2('dr-4')">④ ルーター</a>
+      <a class="toc-a" onclick="scrollTo2('dr-5')">⑤ モデム</a>
+      <a class="toc-a" onclick="scrollTo2('dr-6')">⑥ アクセスポイント</a>
+      <a class="toc-a" onclick="scrollTo2('dr-7')">⑦ ファイアウォール機器</a>
+      <a class="toc-a" onclick="scrollTo2('dr-8')">⑧ 機器の組み合わせ方</a>
+    </nav>
+    <div class="article-body" id="body-devread"></div>
+  </div>
+</div>
+
+<!-- ======================== AWS READ ======================== -->
+<div id="sec-awsread" class="section">
+  <div class="sec-title">AWS<em>入門ガイド</em></div>
+  <div class="sec-sub">「クラウドって何？」から主要サービスまで、やさしく図解で解説します。</div>
+  <div class="article-layout">
+    <nav class="toc" id="toc-aws">
+      <div class="toc-title">目次</div>
+      <a class="toc-a active" onclick="scrollTo2('ar-1')">① クラウドとは</a>
+      <a class="toc-a" onclick="scrollTo2('ar-2')">② グローバル基盤</a>
+      <a class="toc-a" onclick="scrollTo2('ar-3')">③ EC2</a>
+      <a class="toc-a" onclick="scrollTo2('ar-4')">④ S3</a>
+      <a class="toc-a" onclick="scrollTo2('ar-5')">⑤ VPC</a>
+      <a class="toc-a" onclick="scrollTo2('ar-6')">⑥ RDS / DynamoDB</a>
+      <a class="toc-a" onclick="scrollTo2('ar-7')">⑦ Lambda</a>
+      <a class="toc-a" onclick="scrollTo2('ar-8')">⑧ IAM</a>
+    </nav>
+    <div class="article-body" id="body-awsread"></div>
+  </div>
+</div>
+
+<!-- ======================== FLASHCARDS ======================== -->
+<div id="sec-cards" class="section">
+  <div id="fc-list">
+    <div class="sec-title">フラッシュカード<em>学習</em></div>
+    <div class="sec-sub">読み物で学んだあとに挑戦しよう。カードをクリックでフリップします。</div>
+    <div style="font-weight:700;font-size:.9rem;margin-bottom:10px;color:var(--c-text-sub)">🌐 ネットワーク基礎</div>
+    <div class="cards-grid" id="net-deck-list"></div>
+    <div style="font-weight:700;font-size:.9rem;margin-bottom:10px;color:var(--c-text-sub)">☁️ AWS サービス</div>
+    <div class="cards-grid" id="aws-deck-list"></div>
+  </div>
+  <div id="fc-viewer" style="display:none">
+    <button class="back-btn" onclick="closeFC()">← 戻る</button>
+    <div class="fc-header">
+      <div class="fc-title" id="fc-deck-title"></div>
+      <div class="fc-counter"><span id="fc-cur">1</span> / <span id="fc-tot">1</span></div>
+    </div>
+    <div class="fc-wrap"><div class="fc" id="fc-card" onclick="flipFC()">
+      <div class="fc-face"><div class="fc-q" id="fc-q"></div><div class="fc-hint">タップして答えを見る</div></div>
+      <div class="fc-face fc-back"><div class="fc-a" id="fc-a"></div></div>
+    </div></div>
+    <div class="fc-tip">💡 クリックでフリップ</div>
+    <div class="fc-nav">
+      <button class="btn btn-secondary" onclick="fcNav(-1)">← 前へ</button>
+      <button class="btn btn-primary" onclick="fcNav(1)">次へ →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== DIAGRAM ======================== -->
+<div id="sec-diagram" class="section">
+  <div class="sec-title">インタラクティブ<em>構成図</em></div>
+  <div class="sec-sub">各要素をクリック・ホバーして詳細を確認しよう</div>
+
+  <div class="diag-box">
+    <div class="diag-title">🔷 OSI参照モデル — クリックで詳細展開</div>
+    <div class="diag-desc">各層をクリックすると説明が表示されます</div>
+    <div id="osi-layers"></div>
+    <div class="osi-detail" id="osi-detail"></div>
+  </div>
+
+  <div class="diag-box">
+    <div class="diag-title">☁️ AWS VPC 構成図 — チップをホバーで解説</div>
+    <div class="diag-desc">サービスにマウスを乗せると説明が表示されます</div>
+    <div class="vpc-wrap">
+      <div class="igw-bar">🌍 インターネット (Internet Gateway)</div>
+      <div class="vpc-box">
+        <div class="vpc-lbl">VPC 10.0.0.0/16</div>
+        <div class="az-grid">
+          <div class="az-box"><div class="az-lbl">AZ-1a</div>
+            <div class="subnet"><div class="subnet-lbl">🟢 パブリック 10.0.1.0/24</div><span class="chip" data-tip="alb">🔀 ALB</span><span class="chip" data-tip="ec2">⚙️ EC2</span><span class="chip" data-tip="nat">🔁 NAT GW</span></div>
+            <div class="subnet"><div class="subnet-lbl">🔴 プライベート 10.0.2.0/24</div><span class="chip" data-tip="rds">🗄️ RDS</span><span class="chip" data-tip="lambda">λ Lambda</span></div>
+          </div>
+          <div class="az-box"><div class="az-lbl">AZ-1c</div>
+            <div class="subnet"><div class="subnet-lbl">🟢 パブリック 10.0.3.0/24</div><span class="chip" data-tip="alb">🔀 ALB</span><span class="chip" data-tip="ec2">⚙️ EC2</span></div>
+            <div class="subnet"><div class="subnet-lbl">🔴 プライベート 10.0.4.0/24</div><span class="chip" data-tip="rds">🗄️ RDS (Standby)</span><span class="chip" data-tip="elasticache">⚡ ElastiCache</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="vpc-services">
+        <span class="chip" data-tip="s3">🪣 S3</span><span class="chip" data-tip="cloudfront">🌐 CloudFront</span><span class="chip" data-tip="route53">🔍 Route 53</span><span class="chip" data-tip="iam">🔐 IAM</span><span class="chip" data-tip="cloudwatch">📊 CloudWatch</span><span class="chip" data-tip="sg">🛡️ Security Group</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== QUIZ ======================== -->
+<div id="sec-quiz" class="section">
+  <div class="sec-title">確認<em>クイズ</em></div>
+  <div class="sec-sub">全20問・解説付き。正解でXPが貯まります！</div>
+  <div id="quiz-area">
+    <div class="quiz-box">
+      <div class="quiz-qnum" id="q-num">Q1 / 20</div>
+      <div class="quiz-q" id="q-text"></div>
+      <div class="quiz-opts" id="q-opts"></div>
+      <div class="quiz-exp" id="q-exp"></div>
+    </div>
+    <div style="text-align:right"><button class="btn btn-primary" id="q-next" style="display:none" onclick="nextQ()">次の問題 →</button></div>
+  </div>
+  <div class="quiz-score" id="quiz-score">
+    <div class="score-num" id="final-score"></div>
+    <div class="score-msg" id="score-msg"></div>
+    <button class="btn btn-primary" onclick="initQuiz()">もう一度チャレンジ</button>
+  </div>
+</div>
+
+</div><!-- /container -->
+</main>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
