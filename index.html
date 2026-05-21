@@ -192,10 +192,15 @@
 <!-- ======================== QUIZ ======================== -->
 <div id="sec-quiz" class="section">
   <div class="sec-title">確認<em>クイズ</em></div>
-  <div class="sec-sub">全20問・解説付き。正解でXPが貯まります！</div>
-  <div id="quiz-area">
+  <div class="sec-sub">ジャンルを選んで挑戦しよう。解説付き・正解でXPが貯まります！</div>
+  <div class="genre-select" id="quiz-genre">
+    <button class="genre-btn" onclick="selectGenre('aws',this)">☁️ AWSのみ<span class="genre-count">12問</span></button>
+    <button class="genre-btn" onclick="selectGenre('net',this)">🌐 ネットワークのみ<span class="genre-count">5問</span></button>
+    <button class="genre-btn" onclick="selectGenre('mixed',this)">🔀 複合（AWS×ネットワーク）<span class="genre-count">3問</span></button>
+  </div>
+  <div id="quiz-area" style="display:none">
     <div class="quiz-box">
-      <div class="quiz-qnum" id="q-num">Q1 / 20</div>
+      <div class="quiz-qnum" id="q-num">Q1 / 1</div>
       <div class="quiz-q" id="q-text"></div>
       <div class="quiz-opts" id="q-opts"></div>
       <div class="quiz-exp" id="q-exp"></div>
@@ -205,7 +210,10 @@
   <div class="quiz-score" id="quiz-score">
     <div class="score-num" id="final-score"></div>
     <div class="score-msg" id="score-msg"></div>
-    <button class="btn btn-primary" onclick="initQuiz()">もう一度チャレンジ</button>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px">
+      <button class="btn btn-secondary" onclick="showGenreSelect()">← ジャンルを選び直す</button>
+      <button class="btn btn-primary" onclick="initQuiz()">もう一度チャレンジ</button>
+    </div>
   </div>
 </div>
 

@@ -5,6 +5,7 @@ let xp = 0, totalCorrect = 0, streak = 0;
 let curDeck = null, curIdx = 0, flipped = false;
 let qIdx = 0, qScore = 0, shuffled = [];
 let selOSI = null;
+let curGenre = null;
 
 /* ============================================================
    XP
@@ -91,8 +92,26 @@ function fcNav(dir) {
 /* ============================================================
    QUIZ
    ============================================================ */
+const GENRE_LABEL = {aws:'☁️ AWSのみ', net:'🌐 ネットワークのみ', mixed:'🔀 複合'};
+
+function showGenreSelect() {
+  curGenre = null;
+  document.getElementById('quiz-area').style.display = 'none';
+  document.getElementById('quiz-score').classList.remove('show');
+  document.querySelectorAll('.genre-btn').forEach(b => b.classList.remove('active'));
+}
+
+function selectGenre(genre, btn) {
+  curGenre = genre;
+  document.querySelectorAll('.genre-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  initQuiz();
+}
+
 function initQuiz() {
-  shuffled = [...QUIZ].sort(() => Math.random() - .5);
+  if (!curGenre) { showGenreSelect(); return; }
+  const pool = QUIZ.filter(q => q.genre === curGenre);
+  shuffled = [...pool].sort(() => Math.random() - .5);
   qIdx = 0; qScore = 0;
   document.getElementById('quiz-area').style.display = 'block';
   document.getElementById('quiz-score').classList.remove('show');
@@ -135,13 +154,15 @@ function nextQ() {
 function showScore() {
   document.getElementById('quiz-area').style.display = 'none';
   document.getElementById('quiz-score').classList.add('show');
-  document.getElementById('final-score').textContent = qScore;
+  document.getElementById('final-score').textContent = `${qScore} / ${shuffled.length}`;
   const pct = Math.round(qScore / shuffled.length * 100);
-  document.getElementById('score-msg').textContent =
+  const label = GENRE_LABEL[curGenre] || '';
+  const msg =
     pct >= 90 ? '🏆 完璧！素晴らしい理解度です！' :
     pct >= 70 ? '👏 よくできました！もう少しで完璧！' :
     pct >= 50 ? '📚 基礎は理解できています。フラッシュカードで復習しよう' :
     '💪 もう一度学習して再チャレンジしましょう！';
+  document.getElementById('score-msg').innerHTML = `<span style="font-size:.85rem;color:var(--c-text-muted)">${label}</span><br>${msg}`;
 }
 
 /* ============================================================
@@ -269,10 +290,10 @@ function tab(id) {
   if (id === 'netread') renderArticle(NET_READ, 'body-netread');
   if (id === 'devread') renderArticle(DEV_READ, 'body-devread');
   if (id === 'awsread') renderArticle(AWS_READ, 'body-awsread');
-  if (id === 'quiz') initQuiz();
+  if (id === 'quiz') showGenreSelect();
   if (id === 'diagram') initDiagram();
   window.scrollTo(0, 0);
 }
 
-// Initial quiz render
-initQuiz();
+// Initial quiz state (genre not selected)
+showGenreSelect();
