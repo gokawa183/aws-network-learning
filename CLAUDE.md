@@ -67,7 +67,7 @@ app.js
 | `home` | ホーム | `sec-home` |
 | `netread` | ネットワーク入門 | `sec-netread` |
 | `devread` | ネットワーク機器 | `sec-devread` |
-| `awsread` | AWS入門 | `sec-awsread` |
+| `awsread` | AWS入門（全11セクション） | `sec-awsread` |
 | `cards` | フラッシュカード | `sec-cards` |
 | `diagram` | 構成図 | `sec-diagram` |
 | `quiz` | クイズ | `sec-quiz` |
@@ -137,6 +137,22 @@ const NET_READ = [
 ### `DEV_READ`（ネットワーク機器ガイド）・`AWS_READ`（AWS入門ガイド）
 
 `NET_READ` と同じ構造。IDプレフィックスが異なる（`dr-*` / `ar-*`）。
+
+**AWS_READ の現在のセクション一覧（ar-1〜ar-11）：**
+
+| ID | タイトル |
+|----|---------|
+| `ar-1` | クラウドとは何か（IaaS/PaaS/SaaS・責任共有モデル） |
+| `ar-2` | AWSのグローバル基盤（リージョン・AZ・エッジロケーション） |
+| `ar-3` | EC2（インスタンスタイプ・課金モデル・起動手順） |
+| `ar-4` | S3（ストレージクラス・バージョニング・静的ホスティング） |
+| `ar-5` | VPC（CIDR・サブネット・IGW・SG vs NACL） |
+| `ar-6` | RDS / DynamoDB（マルチAZ・Aurora・ElastiCache） |
+| `ar-7` | Lambda（トリガー・コールドスタート・制約） |
+| `ar-8` | IAM（ポリシー・MFA・ベストプラクティス） |
+| `ar-9` | ELB & Auto Scaling（ALB/NLB・スケールアウト/イン） |
+| `ar-10` | CloudWatch（メトリクス・アラーム・ログ・ダッシュボード） |
+| `ar-11` | CloudFront & Route 53（CDN・ルーティングポリシー） |
 
 ### `OSI`（OSIモデル構成図データ）
 

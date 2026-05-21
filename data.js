@@ -308,38 +308,114 @@ const AWS_READ = [
     <tr><td>スケール</td><td>ハード購入が必要で時間がかかる</td><td>数分以内に拡張</td></tr>
     <tr><td>管理</td><td>ハード・OS・電源すべて自社管理</td><td>物理インフラはAWSが管理</td></tr>
     <tr><td>可用性</td><td>冗長化のため設備が2倍必要</td><td>マルチAZで簡単に高可用性を実現</td></tr></table>
+    <div class="a-h3">クラウドの3つのサービス形態</div>
+    <p class="a-p">クラウドには、どこまでAWS側が管理するかによって3種類の形態があります。</p>
+    <table class="tbl"><tr><th>形態</th><th>AWS側が管理</th><th>利用者が管理</th><th>代表例</th></tr>
+    <tr><td><strong>IaaS</strong>（Infrastructure as a Service）</td><td>ハード・仮想化</td><td>OS・ミドルウェア・アプリ</td><td>Amazon EC2</td></tr>
+    <tr><td><strong>PaaS</strong>（Platform as a Service）</td><td>ハード＋OS＋実行環境</td><td>アプリのコードのみ</td><td>Elastic Beanstalk</td></tr>
+    <tr><td><strong>SaaS</strong>（Software as a Service）</td><td>すべて</td><td>データ入力だけ</td><td>Gmail・Salesforce</td></tr></table>
+    <div class="tip"><div class="tip-lbl">💡 AWSを使う5つのメリット</div>
+    ①<strong>初期コストゼロ</strong>：設備投資なしでスタートできる<br>
+    ②<strong>スケーラビリティ</strong>：需要に合わせて瞬時に拡張・縮小できる<br>
+    ③<strong>グローバル展開</strong>：世界中のリージョンにすぐ展開できる<br>
+    ④<strong>マネージドサービス</strong>：運用管理の手間をAWSに任せられる<br>
+    ⑤<strong>セキュリティ</strong>：AWSが物理セキュリティを担当し、利用者はアプリ層だけ守ればよい
+    </div>
+    <div class="a-h3">責任共有モデル</div>
+    <p class="a-p">クラウドではAWSと利用者が<strong>セキュリティの責任を分担</strong>します。これを「責任共有モデル（Shared Responsibility Model）」と言います。</p>
+    <table class="tbl"><tr><th>担当</th><th>責任範囲</th></tr>
+    <tr><td><strong>AWSが担当</strong>（クラウド自体のセキュリティ）</td><td>物理データセンター・ネットワークインフラ・仮想化レイヤー・ハードウェア</td></tr>
+    <tr><td><strong>利用者が担当</strong>（クラウド上のセキュリティ）</td><td>OS設定・アプリコード・データ・IAM権限・セキュリティグループ設定</td></tr></table>
   `},
   {id:'ar-2',icon:'🗺️',title:'② AWSのグローバル基盤',lead:'AWSは世界中にデータセンターを持っています',html:`
     <p class="a-p">AWSのインフラは「<span class="term" data-term="region">リージョン</span>」「<span class="term" data-term="az">AZ（アベイラビリティゾーン）</span>」「<strong>エッジロケーション</strong>」の3層構造です。</p>
     <div class="steps">
-      <div class="step"><div class="step-n">🌍</div><div class="step-body"><div class="step-t">リージョン（例：ap-northeast-1 = 東京）</div><div class="step-d">地理的に独立したデータセンター群の集合。日本には「東京」「大阪」の2リージョンがあります。</div></div></div>
-      <div class="step"><div class="step-n">🏢</div><div class="step-body"><div class="step-t">アベイラビリティゾーン（AZ）</div><div class="step-d">リージョン内の独立したデータセンター群。東京には3つのAZがあります。1つが停電・災害で止まっても他のAZで稼働を続けられます。</div></div></div>
-      <div class="step"><div class="step-n">⚡</div><div class="step-body"><div class="step-t">エッジロケーション</div><div class="step-d">世界中の主要都市に置かれたキャッシュサーバー。CloudFrontが使用し、ユーザーに最も近い場所から高速配信します。</div></div></div>
+      <div class="step"><div class="step-n">🌍</div><div class="step-body"><div class="step-t">リージョン（例：ap-northeast-1 = 東京）</div><div class="step-d">地理的に独立したデータセンター群の集合。日本には「東京」「大阪」の2リージョンがあります。2025年時点で世界30以上のリージョンが稼働しています。</div></div></div>
+      <div class="step"><div class="step-n">🏢</div><div class="step-body"><div class="step-t">アベイラビリティゾーン（AZ）</div><div class="step-d">リージョン内の独立したデータセンター群。東京には3つ以上のAZがあります。1つが停電・災害で止まっても他のAZで稼働を続けられます。</div></div></div>
+      <div class="step"><div class="step-n">⚡</div><div class="step-body"><div class="step-t">エッジロケーション</div><div class="step-d">世界450か所以上の主要都市に置かれたキャッシュサーバー。CloudFrontが使用し、ユーザーに最も近い場所から高速配信します。</div></div></div>
     </div>
-    <div class="tip"><div class="tip-lbl">💡 POINT</div>日本ユーザー向けサービスは<strong>東京リージョン（ap-northeast-1）</strong>が基本。レイテンシーが最小になります。</div>
+    <div class="a-h3">リージョンの選び方</div>
+    <table class="tbl"><tr><th>選択基準</th><th>説明</th></tr>
+    <tr><td>ユーザーとの距離</td><td>日本のユーザー向けなら<strong>東京（ap-northeast-1）</strong>が基本。遅延が最小になる</td></tr>
+    <tr><td>データ主権・法律</td><td>医療・金融などは日本国内でのデータ保管が法律で義務づけられる場合がある</td></tr>
+    <tr><td>サービスの可用性</td><td>一部の新サービスは特定リージョンにのみ提供される</td></tr>
+    <tr><td>コスト</td><td>リージョンによって料金が異なる（米国バージニア北部が最安が多い）</td></tr></table>
+    <div class="a-h3">マルチAZ構成で高可用性を実現</div>
+    <p class="a-p">AWSで「高可用性（HA）」を実現するには、<strong>2つ以上のAZにリソースを分散配置</strong>します。1つのAZが障害を起こしても、別のAZが引き継いでサービスを継続できます。</p>
+    <div class="tip"><div class="tip-lbl">💡 POINT</div>日本ユーザー向けサービスは<strong>東京リージョン（ap-northeast-1）</strong>が基本。大阪（ap-northeast-3）をDR（災害復旧）用として使うケースも多いです。</div>
   `},
   {id:'ar-3',icon:'⚙️',title:'③ 仮想サーバーを借りる — Amazon EC2',lead:'クラウド上のレンタルパソコンです',html:`
     <p class="a-p">「<span class="term" data-term="ec2">Amazon EC2（Elastic Compute Cloud）</span>」は、クラウド上に仮想サーバーを作成できるサービスです。Linux・WindowsのサーバーをOSやスペックを指定して必要な期間だけ借りられます。</p>
     <div class="analogy"><div class="analogy-lbl">💡 わかりやすい例え</div>ホテルの部屋を借りるようなもの。シングルルーム（小サーバー）からスイートルーム（大サーバー）まで選べ、チェックアウト（削除）すれば課金が止まります。</div>
+    <div class="a-h3">インスタンスタイプの選び方</div>
+    <p class="a-p">EC2はさまざまな用途に最適化された「インスタンスタイプ」が用意されています。<span class="kw">t3.micro</span> のような名前は「ファミリー・世代・サイズ」を表します。</p>
+    <table class="tbl"><tr><th>ファミリー</th><th>最適化対象</th><th>用途例</th><th>代表型</th></tr>
+    <tr><td><strong>T系</strong>（汎用・バースト可能）</td><td>コスト重視。通常時は低負荷、必要時だけ高性能</td><td>開発環境・小規模Webサーバー</td><td>t3.micro / t3.small</td></tr>
+    <tr><td><strong>M系</strong>（汎用）</td><td>CPU・メモリのバランスが良い</td><td>Webアプリ・アプリサーバー</td><td>m6i.large</td></tr>
+    <tr><td><strong>C系</strong>（コンピューティング最適化）</td><td>CPU性能重視</td><td>動画エンコード・機械学習推論</td><td>c6i.large</td></tr>
+    <tr><td><strong>R系</strong>（メモリ最適化）</td><td>大量メモリ</td><td>インメモリDB・ビッグデータ</td><td>r6i.large</td></tr>
+    <tr><td><strong>G系</strong>（GPU）</td><td>GPU性能</td><td>機械学習・グラフィック処理</td><td>g4dn.xlarge</td></tr></table>
     <div class="a-h3">EC2の課金モデル</div>
     <table class="tbl"><tr><th>課金タイプ</th><th>特徴</th><th>おすすめ用途</th></tr>
-    <tr><td>オンデマンド</td><td>使った時間分だけ課金</td><td>開発・テスト環境</td></tr>
+    <tr><td>オンデマンド</td><td>使った時間分だけ課金。いつでも開始・停止</td><td>開発・テスト環境</td></tr>
     <tr><td>リザーブド</td><td>1〜3年予約で最大72%割引</td><td>24時間稼働の本番サーバー</td></tr>
-    <tr><td>スポット</td><td>最大90%割引（中断あり）</td><td>バッチ処理・機械学習</td></tr></table>
+    <tr><td>スポット</td><td>最大90%割引（AWSが中断する場合あり）</td><td>バッチ処理・機械学習</td></tr>
+    <tr><td>Savings Plans</td><td>利用量コミットで割引。柔軟性がある</td><td>複数サービスを使う場合</td></tr></table>
+    <div class="a-h3">EC2を起動するまでの流れ</div>
+    <div class="steps">
+      <div class="step"><div class="step-n">1</div><div class="step-body"><div class="step-t"><span class="term" data-term="ami">AMI</span>を選択</div><div class="step-d">AMI（Amazon Machine Image）はOSとソフトウェアが入ったサーバーのテンプレート。Amazon Linux・Ubuntu・Windowsなどから選ぶ</div></div></div>
+      <div class="step"><div class="step-n">2</div><div class="step-body"><div class="step-t">インスタンスタイプを選択</div><div class="step-d">CPU・メモリ・ネットワーク性能を決める。最初は t3.micro（無料枠対象）から始めると良い</div></div></div>
+      <div class="step"><div class="step-n">3</div><div class="step-body"><div class="step-t">ネットワーク設定（VPC・サブネット）</div><div class="step-d">どのVPC・サブネットに配置するかを選択。Webサーバーはパブリックサブネット、DBはプライベートサブネットが基本</div></div></div>
+      <div class="step"><div class="step-n">4</div><div class="step-body"><div class="step-t"><span class="term" data-term="sg">セキュリティグループ</span>を設定</div><div class="step-d">どのポートへの通信を許可するかを設定。Webサーバーなら「80・443のみ許可」が基本</div></div></div>
+      <div class="step"><div class="step-n">5</div><div class="step-body"><div class="step-t">ストレージを設定（EBS）</div><div class="step-d">EC2のディスクストレージ（EBS）のサイズを決定。デフォルトはgp3（汎用SSD）</div></div></div>
+      <div class="step"><div class="step-n">6</div><div class="step-body"><div class="step-t">キーペアを作成・選択</div><div class="step-d">SSHでLinuxサーバーにログインするための「鍵」。プライベートキー（.pem）は大切に保管する</div></div></div>
+    </div>
+    <div class="tip"><div class="tip-lbl">💡 EBSとの関係</div>EC2には必ず<strong>EBS（Elastic Block Store）</strong>というディスクストレージが付いています。EC2を停止してもEBSのデータは残ります。スナップショット機能でバックアップも可能です。</div>
   `},
   {id:'ar-4',icon:'🪣',title:'④ データを保存する — Amazon S3',lead:'クラウド上の容量無制限のファイル置き場です',html:`
     <p class="a-p">「<span class="term" data-term="s3">Amazon S3（Simple Storage Service）</span>」はファイルをインターネット上に保存できるストレージサービスです。容量は実質無制限で、耐久性は <span class="kw">99.999999999%</span> です。</p>
-    <div class="analogy"><div class="analogy-lbl">💡 わかりやすい例え</div>Googleドライブに似ていますが開発者向けの機能が豊富。「バケット」という容れ物の中に「オブジェクト（ファイル）」を保存します。</div>
+    <div class="analogy"><div class="analogy-lbl">💡 わかりやすい例え</div>Googleドライブに似ていますが開発者向けの機能が豊富。「バケット」という容れ物の中に「オブジェクト（ファイル）」を保存します。バケット名はグローバルで一意（世界で唯一）でなければなりません。</div>
+    <div class="a-h3">S3の基本概念</div>
+    <table class="tbl"><tr><th>用語</th><th>説明</th><th>例え</th></tr>
+    <tr><td><strong>バケット</strong></td><td>S3の最上位の入れ物。リージョンに属する</td><td>フォルダ（ドライブ）</td></tr>
+    <tr><td><strong>オブジェクト</strong></td><td>保存されるファイル本体＋メタデータ</td><td>ファイル</td></tr>
+    <tr><td><strong>キー</strong></td><td>オブジェクトのパス（ファイル名に相当）</td><td>ファイルのパス</td></tr>
+    <tr><td><strong>バージョニング</strong></td><td>同じキーに複数バージョンを保持できる機能</td><td>ファイルの履歴管理</td></tr></table>
+    <div class="a-h3">S3ストレージクラス — 用途に応じたコスト最適化</div>
+    <table class="tbl"><tr><th>クラス</th><th>特徴</th><th>向いている用途</th></tr>
+    <tr><td><strong>Standard</strong></td><td>高頻度アクセス。取得料金なし</td><td>Webサイトの画像・動画</td></tr>
+    <tr><td><strong>Standard-IA</strong></td><td>低頻度アクセス用。保存料金安だが取得に料金</td><td>バックアップ・ログ（月1回参照程度）</td></tr>
+    <tr><td><strong>One Zone-IA</strong></td><td>1AZのみ。Standard-IAより20%安</td><td>再作成可能なデータ</td></tr>
+    <tr><td><strong>Intelligent-Tiering</strong></td><td>アクセス頻度を自動判定してクラスを自動変更</td><td>アクセスパターンが不明なデータ</td></tr>
+    <tr><td><strong>Glacier Instant Retrieval</strong></td><td>アーカイブ。取得時間はミリ秒</td><td>四半期に1回参照するデータ</td></tr>
+    <tr><td><strong>Glacier Deep Archive</strong></td><td>最安。取得に12時間</td><td>法的保存義務があるデータ</td></tr></table>
     <div class="a-h3">S3でできること</div>
     <div class="tags"><span class="tag tag-b">🌐 静的Webサイトのホスティング</span><span class="tag tag-g">💾 バックアップ・アーカイブ</span><span class="tag tag-o">📊 データレイク</span><span class="tag tag-p">🖼️ 画像・動画配信</span></div>
-    <div class="tip"><div class="tip-lbl">💡 POINT</div>S3に保存したファイルは自動的に複数のAZにコピーされます。これが「イレブンナイン」の耐久性の秘密です。</div>
+    <div class="tip"><div class="tip-lbl">🌐 静的Webサイトのホスティング</div>S3にHTML・CSS・JSファイルをアップロードし、<strong>静的ウェブサイトホスティング</strong>を有効にするだけで、サーバーなしでWebサイトを公開できます。CloudFrontと組み合わせると高速なCDN配信も可能です。</div>
+    <div class="tip"><div class="tip-lbl">💡 イレブンナインの秘密</div>S3に保存したファイルは自動的に<strong>複数のAZにコピー</strong>されます。1つのAZが障害を起こしてもデータは消えません。これが99.999999999%という驚異の耐久性の秘密です。</div>
   `},
   {id:'ar-5',icon:'🕸️',title:'⑤ 仮想ネットワークを作る — Amazon VPC',lead:'AWS上に「自分だけのプライベートネットワーク」を作れます',html:`
     <p class="a-p">「<span class="term" data-term="vpc">Amazon VPC（Virtual Private Cloud）</span>」はAWS上に仮想的なプライベートネットワークを作成するサービスです。外部から隔離されたネットワーク空間を自分でデザインできます。</p>
+    <div class="a-h3">VPCの構成要素</div>
     <div class="steps">
-      <div class="step"><div class="step-n">🟢</div><div class="step-body"><div class="step-t"><span class="term" data-term="subnet">パブリックサブネット</span></div><div class="step-d">Internet Gateway（IGW）経由でインターネットと直接つながるサブネット。WebサーバーやALBを配置します。</div></div></div>
-      <div class="step"><div class="step-n">🔴</div><div class="step-body"><div class="step-t"><span class="term" data-term="subnet">プライベートサブネット</span></div><div class="step-d">インターネットから直接アクセスできない隔離ゾーン。データベースやバックエンドを置くことでセキュリティを高めます。</div></div></div>
-      <div class="step"><div class="step-n">🛡️</div><div class="step-body"><div class="step-t"><span class="term" data-term="sg">セキュリティグループ</span></div><div class="step-d">EC2への通信を制御する仮想ファイアウォール。「ポート80と443のみ許可」のようなルールを設定します。</div></div></div>
+      <div class="step"><div class="step-n">①</div><div class="step-body"><div class="step-t">CIDR ブロック</div><div class="step-d">VPCのIPアドレス範囲を定義。例：<span class="kw">10.0.0.0/16</span>（65,536個のアドレス）。設計段階で十分な広さを確保することが重要。</div></div></div>
+      <div class="step"><div class="step-n">②</div><div class="step-body"><div class="step-t"><span class="term" data-term="subnet">サブネット</span></div><div class="step-d">VPCを小さく分割した区画。AZ単位で作成する。インターネットに接続可能な「パブリック」と遮断された「プライベート」の2種類がある。</div></div></div>
+      <div class="step"><div class="step-n">③</div><div class="step-body"><div class="step-t">インターネットゲートウェイ（<span class="term" data-term="igw">IGW</span>）</div><div class="step-d">VPCとインターネットをつなぐ出入り口。IGWをVPCにアタッチし、パブリックサブネットのルートテーブルに追加することで通信が可能になる。</div></div></div>
+      <div class="step"><div class="step-n">④</div><div class="step-body"><div class="step-t">ルートテーブル</div><div class="step-d">サブネットのトラフィックをどこに向けるかを定義。パブリックサブネットには「0.0.0.0/0 → IGW」のルートを追加する。</div></div></div>
+      <div class="step"><div class="step-n">⑤</div><div class="step-body"><div class="step-t">NAT Gateway</div><div class="step-d">プライベートサブネット内のリソースがインターネットへアウトバウンド通信する際の出口。インバウンド通信は遮断。パブリックサブネットに設置する。</div></div></div>
+      <div class="step"><div class="step-n">⑥</div><div class="step-body"><div class="step-t"><span class="term" data-term="sg">セキュリティグループ（SG）</span></div><div class="step-d">EC2などのリソースレベルのファイアウォール。ステートフルで動作し、許可ルールのみ設定可能。インバウンド（受信）とアウトバウンド（送信）を個別に制御する。</div></div></div>
+    </div>
+    <div class="a-h3">標準的なVPC構成（3層アーキテクチャ）</div>
+    <table class="tbl"><tr><th>層</th><th>配置するもの</th><th>サブネット</th></tr>
+    <tr><td>プレゼンテーション層</td><td>ALB（ロードバランサー）</td><td>パブリックサブネット（複数AZ）</td></tr>
+    <tr><td>アプリケーション層</td><td>EC2・ECS・Lambda</td><td>プライベートサブネット（複数AZ）</td></tr>
+    <tr><td>データ層</td><td>RDS・DynamoDB・ElastiCache</td><td>プライベートサブネット（複数AZ）</td></tr></table>
+    <div class="tip"><div class="tip-lbl">🔐 セキュリティグループ vs NACL</div>
+    <table class="tbl"><tr><th></th><th>セキュリティグループ</th><th>ネットワークACL（NACL）</th></tr>
+    <tr><td>適用レベル</td><td>インスタンス（EC2など）</td><td>サブネット</td></tr>
+    <tr><td>ステートフル</td><td>◎（往きを許可→戻りも自動許可）</td><td>✕（往きと戻りを別々に設定）</td></tr>
+    <tr><td>拒否ルール</td><td>なし（許可のみ）</td><td>あり（許可・拒否両方）</td></tr>
+    <tr><td>評価順序</td><td>すべて評価（OR）</td><td>番号順（最初にマッチで終了）</td></tr></table>
     </div>
   `},
   {id:'ar-6',icon:'🗄️',title:'⑥ データベースを使う — RDS / DynamoDB',lead:'用途に応じてSQLとNoSQLを使い分けます',html:`
@@ -348,16 +424,46 @@ const AWS_READ = [
     <table class="tbl"><tr><th></th><th>Amazon RDS</th><th>Amazon DynamoDB</th></tr>
     <tr><td>種類</td><td>リレーショナルDB（SQL）</td><td>NoSQL（キー・バリュー型）</td></tr>
     <tr><td>向いている用途</td><td>複雑な検索・結合クエリ</td><td>大量の単純な読み書き</td></tr>
-    <tr><td>スケール</td><td>手動スケールアップ</td><td>自動スケーリング</td></tr>
-    <tr><td>具体例</td><td>ECサイトの注文管理</td><td>ゲームスコア・IoTデータ</td></tr></table>
+    <tr><td>スケール</td><td>手動スケールアップ（読み取りはリードレプリカ）</td><td>自動スケーリング</td></tr>
+    <tr><td>具体例</td><td>ECサイトの注文管理・会員情報</td><td>ゲームスコア・IoTデータ・セッション</td></tr></table>
+    <div class="a-h3">RDSの高可用性機能</div>
+    <div class="steps">
+      <div class="step"><div class="step-n">🏢</div><div class="step-body"><div class="step-t">マルチAZ配置</div><div class="step-d">プライマリDBとは別のAZにスタンバイを同期レプリカとして保持。プライマリが障害時に自動<span class="term" data-term="failover">フェイルオーバー</span>し、約1〜2分でスタンバイが昇格する</div></div></div>
+      <div class="step"><div class="step-n">📖</div><div class="step-body"><div class="step-t">リードレプリカ</div><div class="step-d">読み取り専用のレプリカを作成して読み取り負荷を分散。別リージョンに作成するとDR（災害復旧）にも活用できる</div></div></div>
+      <div class="step"><div class="step-n">💾</div><div class="step-body"><div class="step-t">自動バックアップ</div><div class="step-d">デフォルトで毎日自動バックアップ（保持期間1〜35日）。特定の時点へのポイントインタイムリカバリが可能</div></div></div>
+    </div>
+    <div class="a-h3">Amazon Aurora — RDSの進化版</div>
+    <p class="a-p">AuroraはAWSが独自開発したクラウドネイティブなリレーショナルDB。MySQL・PostgreSQL互換で、標準MySQLの最大5倍の性能を発揮します。ストレージは自動拡張（最大128TB）で、6つのAZにまたがる6コピーのデータ複製により高い耐久性を実現します。</p>
+    <div class="a-h3">Amazon ElastiCache — キャッシュ層の追加</div>
+    <p class="a-p">DBへのすべての読み取りリクエストをRDSで処理すると負荷が高くなります。<strong>ElastiCache</strong>（Redis/Memcached）をキャッシュ層として追加することで、頻繁に参照されるデータをメモリ上に保持し、DB負荷を大幅に削減できます。</p>
+    <table class="tbl"><tr><th></th><th>Redis</th><th>Memcached</th></tr>
+    <tr><td>特徴</td><td>高機能・永続化対応・クラスタリング</td><td>シンプル・高速・マルチスレッド</td></tr>
+    <tr><td>向き</td><td>セッション管理・ランキング・Pub/Sub</td><td>シンプルなキャッシュ</td></tr></table>
   `},
   {id:'ar-7',icon:'λ',title:'⑦ サーバーレスで動かす — AWS Lambda',lead:'サーバーを用意せず、コードだけ書けば動くサービスです',html:`
     <p class="a-p">「<span class="term" data-term="lambda">AWS Lambda</span>」はサーバーレスコンピューティングサービスです。EC2のようにサーバーを常時起動しておく必要はなく、イベントをきっかけに自動でコードが実行されます。</p>
     <div class="analogy"><div class="analogy-lbl">💡 わかりやすい例え</div>電灯の自動センサーと同じ。人が部屋に入ったとき（イベント）だけ電気がつき（コードが実行）、出ると消えます。常に電気をつけっぱなしのEC2と違い、使ったときしか課金されません。</div>
+    <div class="a-h3">Lambdaのトリガー（イベント）</div>
+    <table class="tbl"><tr><th>トリガー</th><th>イベント例</th><th>ユースケース</th></tr>
+    <tr><td>Amazon S3</td><td>ファイルアップロード・削除</td><td>画像リサイズ・ETL処理</td></tr>
+    <tr><td>API Gateway</td><td>HTTPリクエスト（GET/POST）</td><td>REST API バックエンド</td></tr>
+    <tr><td>DynamoDB Streams</td><td>テーブルのデータ変更</td><td>変更の通知・集計処理</td></tr>
+    <tr><td>EventBridge</td><td>定時実行（cron）</td><td>定期バッチ処理</td></tr>
+    <tr><td>SQS</td><td>キューへのメッセージ追加</td><td>非同期処理</td></tr>
+    <tr><td>SNS</td><td>通知イベント</td><td>プッシュ通知・メール送信</td></tr></table>
+    <div class="a-h3">具体的な活用例</div>
     <div class="steps">
       <div class="step"><div class="step-n">📸</div><div class="step-body"><div class="step-t">画像の自動リサイズ</div><div class="step-d">S3に画像がアップロードされたとき（イベント）、Lambdaが自動でサムネイルを生成してS3に保存する</div></div></div>
-      <div class="step"><div class="step-n">🌐</div><div class="step-body"><div class="step-t">APIバックエンド</div><div class="step-d">API Gatewayと組み合わせて、HTTPリクエストをトリガーにLambdaが処理してレスポンスを返す。サーバー管理不要。</div></div></div>
+      <div class="step"><div class="step-n">🌐</div><div class="step-body"><div class="step-t">サーバーレスAPIバックエンド</div><div class="step-d">API Gatewayと組み合わせて、HTTPリクエストをトリガーにLambdaが処理してレスポンスを返す。サーバー管理不要。</div></div></div>
+      <div class="step"><div class="step-n">⏰</div><div class="step-body"><div class="step-t">定期バッチ処理</div><div class="step-d">EventBridgeで「毎日0時に実行」のようなcronスケジュールでLambdaを起動。データ集計・レポート生成に活用</div></div></div>
     </div>
+    <div class="a-h3">Lambdaの制約と注意点</div>
+    <table class="tbl"><tr><th>項目</th><th>制限値</th></tr>
+    <tr><td>最大実行時間</td><td>15分（タイムアウト）</td></tr>
+    <tr><td>メモリ</td><td>128MB〜10,240MB</td></tr>
+    <tr><td>デプロイパッケージ</td><td>50MB（ZIP）/ 250MB（解凍後）</td></tr>
+    <tr><td>同時実行数</td><td>デフォルト1,000（リージョン単位）</td></tr></table>
+    <div class="tip"><div class="tip-lbl">❄️ コールドスタートとは</div>Lambdaは使われていない間、コンテナが停止します。リクエストが来たとき初回の起動（コールドスタート）は数百ms〜数秒かかることがあります。重要なAPIには<strong>プロビジョニングされた同時実行数</strong>を設定することでコールドスタートを回避できます。</div>
   `},
   {id:'ar-8',icon:'🔐',title:'⑧ アクセスを管理する — AWS IAM',lead:'「誰が」「何に」「何ができるか」を管理するサービスです',html:`
     <p class="a-p">「<span class="term" data-term="iam">IAM（Identity and Access Management）</span>」はAWSを始めて最初に理解すべき重要サービスです。どのユーザーがどのAWSサービスにどんな操作ができるかを細かく制御します。</p>
@@ -366,7 +472,80 @@ const AWS_READ = [
     <tr><td>IAMグループ</td><td>ユーザーの集まり。まとめて権限付与</td><td>部署（開発部・営業部）</td></tr>
     <tr><td>IAMロール</td><td>EC2等のサービスに付与する一時的な権限</td><td>「EC2はS3を読める」許可書</td></tr>
     <tr><td>IAMポリシー</td><td>権限の定義（JSON形式）</td><td>職務規程</td></tr></table>
+    <div class="a-h3">IAMポリシーの仕組み</div>
+    <p class="a-p">IAMポリシーはJSON形式で記述します。どの「アクション（Action）」を、どの「リソース（Resource）」に対して「許可/拒否（Effect）」するかを定義します。</p>
+    <div class="tip"><div class="tip-lbl">📋 ポリシーの例：特定のS3バケットの読み取りのみ許可</div>
+    <span class="kw">Effect: Allow</span> → 許可<br>
+    <span class="kw">Action: s3:GetObject</span> → オブジェクトの取得<br>
+    <span class="kw">Resource: arn:aws:s3:::my-bucket/*</span> → my-bucketの全オブジェクト
+    </div>
+    <div class="a-h3">IAM セキュリティのベストプラクティス</div>
+    <div class="steps">
+      <div class="step"><div class="step-n">1</div><div class="step-body"><div class="step-t">ルートアカウントを日常使用しない</div><div class="step-d">ルートアカウントは全権限を持つ「神アカウント」。日常作業はIAMユーザーで行い、ルートアカウントはMFA設定・請求確認のみに使用する</div></div></div>
+      <div class="step"><div class="step-n">2</div><div class="step-body"><div class="step-t">MFA（多要素認証）を有効化</div><div class="step-d">パスワード＋スマホ認証アプリのコードで2段階認証。漏洩してもアカウントを守れる。特にルートアカウントとIAMユーザーに必ず設定する</div></div></div>
+      <div class="step"><div class="step-n">3</div><div class="step-body"><div class="step-t">最小権限の原則</div><div class="step-d">必要最小限の権限のみ付与する。「とりあえず管理者権限」は厳禁。侵害されたときの被害を最小化できる</div></div></div>
+      <div class="step"><div class="step-n">4</div><div class="step-body"><div class="step-t">アクセスキーは慎重に管理</div><div class="step-d">プログラムからAWS APIを使うためのアクセスキーは、GitHubなどに誤ってコミットしないよう注意。EC2からはIAMロールを使う</div></div></div>
+    </div>
     <div class="tip"><div class="tip-lbl">🔴 セキュリティの鉄則</div>ルートアカウントの日常利用を避け、IAMユーザーで作業しましょう。<strong>最小権限の原則</strong>として、必要最小限の権限だけ付与することがセキュリティの基本です。</div>
+  `},
+  {id:'ar-9',icon:'⚖️',title:'⑨ 負荷分散と自動スケール — ELB & Auto Scaling',lead:'アクセスが集中しても落ちないシステムを作る仕組みです',html:`
+    <p class="a-p">本番環境では1台のサーバーに全アクセスを集中させてはいけません。サーバーが落ちたときの備えと、急なアクセス増加への対応のために「負荷分散」と「自動スケール」が必要です。</p>
+    <div class="a-h3">Elastic Load Balancing（ELB）</div>
+    <p class="a-p">ELBは複数のEC2インスタンスに<strong>トラフィックを自動で分散</strong>するサービスです。1台が故障してもELBが自動で切り離し、残りのサーバーで処理を継続します。</p>
+    <div class="analogy"><div class="analogy-lbl">💡 わかりやすい例え</div>混雑するレジを想像してください。ELBは「どのレジが空いているか案内するスタッフ」です。お客さん（リクエスト）を均等に各レジ（EC2）に振り分けてくれます。</div>
+    <table class="tbl"><tr><th>種類</th><th>動作層</th><th>特徴</th><th>用途</th></tr>
+    <tr><td><strong>ALB</strong>（Application LB）</td><td>第7層（HTTP）</td><td>パスやホストヘッダーで振り分け先を変えられる</td><td>Webアプリ・マイクロサービス</td></tr>
+    <tr><td><strong>NLB</strong>（Network LB）</td><td>第4層（TCP/UDP）</td><td>超高速・固定IP。HTTP以外も処理可能</td><td>ゲーム・IoT・VoIP</td></tr>
+    <tr><td><strong>GLB</strong>（Gateway LB）</td><td>第3層（IP）</td><td>サードパーティ製セキュリティ機器への転送</td><td>ファイアウォール・IDS連携</td></tr></table>
+    <div class="a-h3">Auto Scaling — 需要に応じてサーバーを自動増減</div>
+    <p class="a-p">Auto ScalingはCPU使用率などのメトリクスを見てEC2の台数を自動で増減させます。アクセスが多い時は台数を増やし（スケールアウト）、少ない時は減らす（スケールイン）ことでコストと性能を最適化します。</p>
+    <div class="steps">
+      <div class="step"><div class="step-n">📈</div><div class="step-body"><div class="step-t">スケールアウト（台数増加）</div><div class="step-d">CPU使用率が70%超過などのトリガーで新しいEC2を自動起動。ELBに自動登録されトラフィックが分散される</div></div></div>
+      <div class="step"><div class="step-n">📉</div><div class="step-body"><div class="step-t">スケールイン（台数削減）</div><div class="step-d">CPU使用率が低い状態が続くとEC2を停止。不要なコストを削減する。最小台数（min）は必ず維持される</div></div></div>
+    </div>
+    <div class="tip"><div class="tip-lbl">💡 ELB ＋ Auto Scaling の組み合わせ</div>ELBとAuto ScalingをセットにすることでAWSの「弾力性（Elasticity）」が実現します。突然のアクセス急増でも自動でサーバーが増え、アクセスが減れば自動で台数が減ります。24時間手動操作なしで最適な性能とコストを維持できます。</div>
+  `},
+  {id:'ar-10',icon:'📊',title:'⑩ 監視とアラート — Amazon CloudWatch',lead:'AWSリソースの状態を常に監視し、異常を即座に検知します',html:`
+    <p class="a-p">本番環境では何かが起きたときにすぐ気づける仕組みが必要です。<strong>Amazon CloudWatch</strong>はAWSの統合監視サービスで、メトリクス・ログ・アラートを一元管理します。</p>
+    <div class="a-h3">CloudWatchの主な機能</div>
+    <div class="steps">
+      <div class="step"><div class="step-n">📈</div><div class="step-body"><div class="step-t">メトリクス</div><div class="step-d">EC2のCPU使用率・RDSのコネクション数・ELBのリクエスト数など、AWSサービスの数値データを自動収集。1分単位（詳細監視）でグラフ表示できる</div></div></div>
+      <div class="step"><div class="step-n">🔔</div><div class="step-body"><div class="step-t">アラーム</div><div class="step-d">「CPU使用率が80%を5分間超えたらメール通知」のような条件を設定。Auto ScalingのトリガーにもCloudWatchアラームを使う</div></div></div>
+      <div class="step"><div class="step-n">📋</div><div class="step-body"><div class="step-t">ログ（CloudWatch Logs）</div><div class="step-d">EC2・Lambda・RDSなどのログを一元収集・保存・検索。エラーログのパターンを監視してアラームを出すことも可能</div></div></div>
+      <div class="step"><div class="step-n">📊</div><div class="step-body"><div class="step-t">ダッシュボード</div><div class="step-d">複数のメトリクスを1画面に並べてシステムの状態を一目で確認できるカスタムダッシュボードを作成できる</div></div></div>
+    </div>
+    <div class="a-h3">よく監視するメトリクス</div>
+    <table class="tbl"><tr><th>サービス</th><th>重要メトリクス</th><th>目安のしきい値</th></tr>
+    <tr><td>EC2</td><td>CPUUtilization</td><td>70〜80%を超えたらアラート</td></tr>
+    <tr><td>RDS</td><td>FreeStorageSpace・DatabaseConnections</td><td>ストレージ残量20%以下でアラート</td></tr>
+    <tr><td>ALB</td><td>TargetResponseTime・HTTPCode_Target_5XX</td><td>5XXエラー率が1%超でアラート</td></tr>
+    <tr><td>Lambda</td><td>Duration・Errors・Throttles</td><td>エラー率・スロットル数増加でアラート</td></tr></table>
+    <div class="tip"><div class="tip-lbl">💡 CloudTrailとの違い</div>CloudWatchは「今のシステムの状態（メトリクス・ログ）」を監視します。一方 <strong>CloudTrail</strong> は「誰がいつ何を操作したか（APIコールの記録）」を監査します。セキュリティ対応には両方が必要です。</div>
+  `},
+  {id:'ar-11',icon:'🌐',title:'⑪ CDNとDNS — CloudFront & Route 53',lead:'世界中に高速・安全にコンテンツを届ける仕組みです',html:`
+    <p class="a-p">Webサービスを世界中のユーザーに低遅延で届けるには「<span class="term" data-term="cdn">CDN</span>」と「<span class="term" data-term="dns">DNS</span>」が欠かせません。AWSでは<strong>CloudFront</strong>（CDN）と<strong>Route 53</strong>（DNS）がこの役割を担います。</p>
+    <div class="a-h3">Amazon CloudFront — CDN（コンテンツデリバリーネットワーク）</div>
+    <p class="a-p">CloudFrontは世界450か所以上のエッジロケーションにコンテンツをキャッシュし、ユーザーに最も近い場所から配信します。</p>
+    <div class="analogy"><div class="analogy-lbl">💡 わかりやすい例え</div>コンビニと同じ仕組み。本社（オリジンサーバー）が遠くにあっても、近所のコンビニ（エッジロケーション）に在庫（キャッシュ）があればすぐ手に入ります。</div>
+    <div class="steps">
+      <div class="step"><div class="step-n">1</div><div class="step-body"><div class="step-t">ユーザーがコンテンツをリクエスト</div><div class="step-d">ブラウザがCloudFrontのドメインにHTTPSリクエストを送信する</div></div></div>
+      <div class="step"><div class="step-n">2</div><div class="step-body"><div class="step-t">最寄りのエッジロケーションが応答</div><div class="step-d">キャッシュがあれば即座にレスポンス（キャッシュヒット）。なければオリジンサーバーへ取得しに行く（キャッシュミス）</div></div></div>
+      <div class="step"><div class="step-n">3</div><div class="step-body"><div class="step-t">次回以降はキャッシュから高速配信</div><div class="step-d">取得したコンテンツをエッジにキャッシュ。<span class="term" data-term="ttl">TTL</span>の期間中は次のリクエストも即座に応答できる</div></div></div>
+    </div>
+    <table class="tbl"><tr><th>CloudFrontの主なメリット</th><th>説明</th></tr>
+    <tr><td>低レイテンシー</td><td>ユーザーに近い拠点から配信。東京ユーザーに東京エッジから配信</td></tr>
+    <tr><td>オリジン負荷軽減</td><td>キャッシュヒット率が高いほどEC2・S3への直接リクエストが減る</td></tr>
+    <tr><td>DDoS対策</td><td>AWS Shieldが自動的にDDoS攻撃を緩和</td></tr>
+    <tr><td>WAF統合</td><td>AWS WAFと連携してSQLiやXSSを遮断</td></tr>
+    <tr><td>HTTPS強制</td><td>HTTPをHTTPSにリダイレクト。ACM証明書を無料で利用可能</td></tr></table>
+    <div class="a-h3">Amazon Route 53 — DNSサービス</div>
+    <p class="a-p">Route 53はAWSのマネージドDNSサービスです。ドメインの登録から、Aレコード・CNAMEレコードの管理、ヘルスチェックによるフェイルオーバーまで一元管理できます。</p>
+    <table class="tbl"><tr><th>ルーティングポリシー</th><th>動作</th><th>用途</th></tr>
+    <tr><td>シンプル</td><td>1つのエンドポイントに誘導</td><td>通常の名前解決</td></tr>
+    <tr><td>加重（Weighted）</td><td>重みに応じてトラフィックを分散</td><td>A/Bテスト・カナリアリリース</td></tr>
+    <tr><td>レイテンシー</td><td>最も応答が速いリージョンへ誘導</td><td>グローバルサービスの最適化</td></tr>
+    <tr><td>フェイルオーバー</td><td>プライマリが落ちたら自動でセカンダリへ</td><td>DR（災害復旧）</td></tr>
+    <tr><td>地理的（Geolocation）</td><td>ユーザーの場所でルーティング先を変える</td><td>地域限定コンテンツ配信</td></tr></table>
     <div class="tip"><div class="tip-lbl">🎯 次のステップ</div>AWS入門ガイドを読み終えたら、<strong>🗂️ フラッシュカード</strong>→<strong>🗺️ 構成図</strong>→<strong>🎯 クイズ</strong>の順で理解を深めましょう！</div>
   `},
 ];
@@ -485,6 +664,7 @@ const TERMS = {
   region:     {w:'リージョン',      b:'AWSのデータセンター群を地理的に区切った単位。日本には「東京（ap-northeast-1）」と「大阪（ap-northeast-3）」がある。データをどの国・地域に保存するか選べる。'},
   az:         {w:'AZ（アベイラビリティゾーン）', b:'リージョン内にある独立したデータセンター群。電源・冷却・ネットワークが独立しているため、1つのAZが障害を起こしても他のAZは稼働し続ける。高可用性の基本。'},
   ec2:        {w:'Amazon EC2',      b:'<strong>Elastic Compute Cloud</strong>の略。AWSが提供する仮想サーバーサービス。LinuxやWindowsのサーバーをクラウド上に数分で作成でき、使い終われば削除して課金を止められる。'},
+  ami:        {w:'AMI（Amazon Machine Image）', b:'EC2インスタンスを起動するための<strong>テンプレート</strong>。OS・ミドルウェア・アプリケーションの設定がパッケージ化されている。AWSが提供する公式AMI（Amazon Linux・Ubuntu等）のほか、自分でカスタムAMIを作成してチーム内で共有することもできる。'},
   s3:         {w:'Amazon S3',       b:'<strong>Simple Storage Service</strong>の略。AWSのオブジェクトストレージ。容量は実質無制限で耐久性は99.999999999%（イレブンナイン）。ファイル・画像・動画・バックアップの保存先として広く使われる。'},
   vpc:        {w:'Amazon VPC',      b:'<strong>Virtual Private Cloud</strong>の略。AWS上に作る仮想プライベートネットワーク。IPアドレス範囲・サブネット・ルートテーブル・ファイアウォールを自由に設計できる。'},
   subnet:     {w:'サブネット',      b:'VPCのIPアドレス空間を小さく<strong>分割した区画</strong>のこと。インターネットに直接つながる「パブリックサブネット」と、外部から隔離された「プライベートサブネット」がある。'},
