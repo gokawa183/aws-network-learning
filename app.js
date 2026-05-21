@@ -131,17 +131,23 @@ function renderQ() {
 
 function answerQ(chosen) {
   const q = shuffled[qIdx];
-  document.querySelectorAll('.quiz-opt').forEach(b => b.disabled = true);
-  document.querySelectorAll('.quiz-opt')[q.ans].classList.add('correct');
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach(b => b.disabled = true);
+  opts[q.ans].classList.add('correct');
+  opts[q.ans].innerHTML = '✓ ' + q.opts[q.ans];
+  const exp = document.getElementById('q-exp');
   if (chosen === q.ans) {
     qScore++; totalCorrect++; streak++;
     addXP(10 + Math.min(streak * 2, 20));
+    exp.className = 'quiz-exp show correct-exp';
+    exp.innerHTML = '<span class="quiz-result-label" style="color:var(--c-correct)">✓ 正解！</span>' + q.exp;
   } else {
-    document.querySelectorAll('.quiz-opt')[chosen].classList.add('wrong');
+    opts[chosen].classList.add('wrong');
+    opts[chosen].innerHTML = '✗ ' + q.opts[chosen];
     streak = 0; addXP(2);
+    exp.className = 'quiz-exp show wrong-exp';
+    exp.innerHTML = '<span class="quiz-result-label" style="color:var(--c-wrong)">✗ 不正解</span>' + q.exp;
   }
-  const exp = document.getElementById('q-exp');
-  exp.innerHTML = q.exp; exp.classList.add('show');
   document.getElementById('q-next').style.display = 'inline-block';
 }
 
